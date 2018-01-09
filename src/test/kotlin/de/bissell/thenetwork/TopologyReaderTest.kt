@@ -20,4 +20,12 @@ class TopologyReaderTest {
         assertThat(topology.connectedTo(2, 2)).isEqualTo(Socket(4, 0))
         assertThat(topology.connectedTo(4, 1)).isEqualTo(Socket(1, 1))
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun exceptionOnSyntaxError() {
+        val topologyReader = TopologyReader()
+        val topologyPath = Paths.get(this.javaClass.classLoader.getResource("broken-topology.txt").toURI())
+
+         topologyReader.read(topologyPath)
+    }
 }
